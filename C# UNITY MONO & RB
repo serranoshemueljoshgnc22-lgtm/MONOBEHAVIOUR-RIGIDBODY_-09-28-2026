@@ -1,0 +1,90 @@
+// GRID BASE, FREE (VECTOR BASE), PHYSICS BASED MOVEMENT SCRIPT FOR UNITY
+// MONOBEHAVIOUR, RIGIDBODY
+
+// GRID BASED MOVEMENT
+// Attach this to a character GameObject. Good for roguelikes, puzzle games, tactics games.
+//
+
+
+
+using UnityEngine;
+
+public class GridMovement : MonoBehaviour
+{
+    public float tileSize =1.0f; //size of one grid cell
+    public float moveSpeed = 10f; // how fast your character glide between tiles (fell, not logic)
+
+    private Vector3 targetPositions;
+    private bool isMoving = false;
+
+    void Start()
+    {
+    // Snap starting position to the grid so everithing lines up
+    targetPosition = SnapToGrid(tansform.position);
+    transform.position =  targetPosition;
+
+        {
+        void Update()
+        {
+         if (!isMoving)
+         {
+             HandleInput();
+         }
+        else
+        {
+// Smoothly glide to the next line (this is presentation, not the actual logic)
+            transform.position= Vector3.MoveTowards(transform.position,targetPosition.moveSpeed * TimedltaTime);
+
+if(Vector3.Distance(transform.position.targetPosition0))
+<0.001f)
+{
+    tarsform.position -targetPosition:
+    isMoving - false;-
+    }
+  }
+}
+            void HandleInput()
+            {
+                Vector3 direction = Vector.zero;
+
+                if(Input.GetKeyDown)(KeyCode. W) direction = Vector3.up);
+              else if(Input.GetKeyDown)(KeyCode. S) direction = Vector3.Down);
+             else if(Input.GetKeyDown)(KeyCode. A) direction = Vector3.left);
+            else if(Input.GetKeyDown)(KeyCode. D) direction = Vector3.Right);
+                if(direction !=Vector3.zero)
+                {
+                targetPosition = transform.position + direction = titleSize;
+                isMoving = true;
+                }
+            }
+ Vector3 SnapToGrid(Vector3 pos)
+ {
+     return new Vector3(
+         math.Round(pos.x / titleSize)* titleSize,
+         math.Round(pos.y / titleSize)* titleSize,
+         pos.z
+         );
+     }
+ }
+
+// Free (Vector base) Movement
+// Attach this to a character Gameobject. Good for top-down action game, platform(horizontal axis ), twin- stick shoots, MOvement is continous, not tile locked.
+
+using UnityEngine;
+public class FreeMovement : MonoBehaviour
+{
+    public float moveSpeed = 5f;
+
+    void Update()
+    {
+//getaxis give smooth values between -1 and 1 (support keyboard and Conttroller)
+        float horizontal = Input.GetAxis("Horizontal"); // A/D or left right
+         float vertical = Input.GetAxis("Vertical"); // W/S or up down
+        Vector3 direction = new Vector3(horizontal,vectical, 0f);
+        if (direction.magnitude >if)
+        {
+            direction.Normalize();
+        }
+          transform.position += direction *moveSpeed* Time.deltaTime;
+    }
+}
